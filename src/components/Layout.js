@@ -5,7 +5,8 @@ height: 5vh;
 `;
 
 export const Main = styled.main`
-height: 95vh;
+min-height: 100vh;
+padding: 2.5vh
 `;
 
 export const Footer = styled.footer`
