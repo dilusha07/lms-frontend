@@ -10,8 +10,8 @@ const Dashboard = () => {
     ]
      
     return (
-        <Tabs contents ={contents} />
-    );
+        <Tabs contents ={contents}/>
+    )
 };
 
 export default Dashboard;

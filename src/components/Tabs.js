@@ -10,7 +10,7 @@ height: 100%;
 
 const TabButtonContainer = styled.div`
 display: flex;
-.*{
+> * {
     flex: 1 1 0;
     max-width: 10em;
 }
@@ -42,7 +42,7 @@ border-top: 0.5em solid ${(props) => props.theme.primary.main};
 border-top-right-radius: 1em;
 border-bottom-left-radius: 1em;
 border-bottom-right-radius: 1em;
-min-height: 88vh;
+min-height: 80vh;
 `;
 
 export const Content = styled.div`
@@ -61,6 +61,7 @@ export default function Tabs(props) {
         }
 
     };
+    return(
     <TabsContainer>
         <TabButtonContainer>
             {contents.map((content, index) => (
@@ -80,6 +81,7 @@ export default function Tabs(props) {
 
                 </TabContents>
     </TabsContainer>
+    )
 }
 
 

@@ -1,13 +1,13 @@
 import React from "react";
 import {ThemeProvider} from "styled-components";
-import {BsBookHalf} from 'react-icons/bs';
+import {BsBookHalf} from "react-icons/bs";
 
-import { Main, Footer} from "./components/Layout";
-import { NavBar, NavItem, NavLink} from './components/Navbar';
+import { Main, Footer, Header} from "./components/Layout";
+import { NavBar, NavItem, NavLink} from "./components/Navbar";
 
-
+import Dashboard from "./containers/Dashboard";
 function App() {
-  const theme ={
+  const theme = {
     primary: {
       main: "#29b6f6",
       light: "#73e8ff",
@@ -16,12 +16,13 @@ function App() {
     },
     secondary:{
       main:"#fff",
-    }
+    },
+    spacing: (factor) =>  '${factor * 8}px',
     
   };
   return (
-    <ThemeProvider theme={theme}>
-  
+    <ThemeProvider theme= {theme}>
+    <Header>
     <NavBar>
     <NavItem href="#">
         <NavLink>
@@ -29,19 +30,20 @@ function App() {
           </NavLink>
       </NavItem>
       <NavItem href="#">
-        <NavLink>
-          Catalog
-          </NavLink>
+        <NavLink>Catalog</NavLink>
       </NavItem>
       <NavItem href="#">
-        <NavLink>
-          Dashboard
-          </NavLink>
+        <NavLink>Dashboard</NavLink>
       </NavItem>
     </NavBar>
+  </Header>
+  <Main>
 
-  <Main>This is the main component</Main>
-  <Footer>This is the footer</Footer>
+    <Dashboard />
+  </Main>
+  <Footer>
+    Copyright {new Date().getFullYear()} © Dilusha Sandaruwani{""}
+  </Footer>
    </ThemeProvider>
   );
 }
