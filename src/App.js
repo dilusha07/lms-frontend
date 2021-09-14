@@ -20,6 +20,7 @@ function App() {
     spacing: (factor) =>  '${factor * 8}px',
     
   };
+
   return (
     <ThemeProvider theme= {theme}>
     <Header>
@@ -45,7 +46,7 @@ function App() {
     Copyright {new Date().getFullYear()} © Dilusha Sandaruwani{""}
   </Footer>
    </ThemeProvider>
-  );
+  )
 }
 
 export default App;
