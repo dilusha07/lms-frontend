@@ -9,10 +9,12 @@ import Spinner from "./components/Spinner";
 
 import { DASHBOARD, CATALOG } from "./shared/routes";
 
-
-
 const Dashboard = React.lazy(() => {
   return import("./containers/Dashboard");
+});
+
+const NotFound = React.lazy(() => {
+  return import("./containers/404");
 });
 
 
@@ -36,6 +38,7 @@ function App() {
     <Switch>
       <Route exact path = {DASHBOARD} component = {Dashboard} />
       <Route exact path = {CATALOG} component = {Spinner} />
+      <Route component = {NotFound} />
     
     </Switch>
     </Suspense>
