@@ -67,7 +67,10 @@ export default function Tabs(props) {
     <TabsContainer>
         <TabButtonContainer>
             {contents.map((content, index) => (
-                    <Tab onClick = {handleClick} active={active === index} id={index}>
+                    <Tab onClick = {handleClick} active={active === index} 
+                    id={index}
+                    key = {index}
+                    >
                     {content.title}
                     </Tab>
                 ))}
@@ -75,7 +78,7 @@ export default function Tabs(props) {
         </TabButtonContainer>
         <TabContents>
                     {contents.map((content, index) => (
-                            <Content active ={active === index}>
+                            <Content active ={active === index} key={index}>
                                 {content.elements}
                             </Content>
                         ))
