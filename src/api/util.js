@@ -7,13 +7,13 @@ export const getRequest = async(uri) => {
 
         return {
             data: response.data,
-            error: null
+            error: null,
         };
         
     } catch (error) {
         return {
             data: null,
-            error: error
+            error: error,
         };
     }
-}
+};
