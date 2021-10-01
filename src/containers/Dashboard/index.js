@@ -1,20 +1,23 @@
 import React, {useEffect, useState} from "react";
 
-import Tabs from "../components/Tabs";
+import Tabs from "../../components/Tabs";
+import Spinner from "../../components/Spinner";
 
-import { getBooks } from "../api/bookAPI";
-import Spinner from "../components/Spinner";
+import Books from "./Books";
 
+import { getBooks } from "../../api/bookAPI";
 
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [books, setBooks] = useState([]);
 
     useEffect(() => {
       setIsLoading(true);
       getBooks()
-        .then((Response) => {
-            if(!Response.error) {
-                console.log(Response.data);
+        .then((response) => {
+            if(!response.error) {
+                console.log(response.data);
+                setBooks(response.data);
             }
         })
         .catch((error)=> {
@@ -22,13 +25,13 @@ const Dashboard = () => {
         })
         .finally(() => {
             setIsLoading(false);
-        })
+        });
         
-    }, [])
+    }, []);
     const contents = [
         {
             title: "Books", 
-            element: <h1>Contents of books go here.</h1>
+            element: <Books catalog = {books} />
         },
         {
             title: "Members", 
