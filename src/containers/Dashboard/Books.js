@@ -14,11 +14,26 @@ const Books = ({catalog}) => {
             isAvailable: true,
             title: "Harry Potter",
         },
+        {
+            author: "Dilusha",
+            burrowedData: "",
+            burrowedMemberId: "",
+            id: "3",
+            isAvailable: true,
+            title: "Harry Potter",
+        },
     ];
+
+    const handleTableRowClick = (id) => {
+        console.log(id);
+    }
     return (
-        <FluidContainer>
-            
-            {<Table data = {updatedCatalog} />}
+        <FluidContainer>       
+            {<Table 
+            data = {updatedCatalog} 
+            handleRowClick={handleTableRowClick}
+            instruction= "Click row to view book"
+            />}
         </FluidContainer>
     );
 };
