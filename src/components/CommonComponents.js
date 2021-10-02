@@ -41,7 +41,7 @@ border-radius: 0.5em;
 cursor: pointer;
 
 :hover{
-    background-color: ${(props) => props.theme.primary,dark};
+    background-color: ${(props) => props.theme.primary.dark};
 }
 
 `;

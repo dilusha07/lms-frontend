@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {IoReturnUpBack} from "react-icons/ios";
+import {IoReturnUpBack} from "react-icons/io5";
+
 import { getBook } from "../../api/bookAPI";
 import { Button, Container, ContainerInline, FlexRow } from "../../components/CommonComponents";
 import Spinner from "../../components/Spinner";
