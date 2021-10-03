@@ -48,7 +48,7 @@ const Book = ({id, handleBackClick}) =>{
 
     return (
         <Container>
-            <Button onClick={handleBackClick}>
+            <Button onClick={handleBackClick} size = {1.5}>
                 <IoReturnUpBack />
             </Button>
             {!isLoading && book !== null ? (

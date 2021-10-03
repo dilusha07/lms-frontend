@@ -8,23 +8,22 @@ const Books = ({catalog}) => {
     const [selectedBookId, setSelectedBookId] = useState(null);
        
     const handleTableRowClick = (id) => {
-        console.log(id);
         setSelectedBookId(id);
     };
 
     const handleBookViewBackClick = () => {
         setSelectedBookId(null);
-    }
-    return (
-        setSelectedBookId === null ?
+    };
+    return setSelectedBookId === null ? (
         <FluidContainer>       
-            {<Table 
+            <Table 
             data = {catalog} 
             handleRowClick={handleTableRowClick}
             instruction= "Click row to view book"
-            />}
+            />
         </FluidContainer>
-        : <Book id ={setSelectedBookId} handleBackClick={handleBookViewBackClick} />
+    ): (
+         <Book id ={setSelectedBookId} handleBackClick={handleBookViewBackClick} />
     );
 };
 
