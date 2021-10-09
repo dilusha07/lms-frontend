@@ -2,16 +2,16 @@ import React, {useState, useEffect} from "react";
 import {IoReturnUpBack} from "react-icons/io5";
 import styled from "styled-components";
 
-import { getBook } from "../../api/bookAPI";
-import BookCoverPlaceholder from "../../shared/book-cover-placeholder.png";
-import Books from "./Books";
+import { getBook } from "../../../api/bookAPI";
+import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
+
 
 import { Button, 
          Container, 
          ContainerInline, 
          FlexRow 
-} from "../../components/CommonComponents";
-import Spinner from "../../components/Spinner";
+} from "../../../components/CommonComponents";
+import Spinner from "../../../components/Spinner";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
  align-items: flex-start;
