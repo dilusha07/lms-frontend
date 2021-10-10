@@ -97,7 +97,7 @@ const Book = ({id, handleBackClick}) =>{
                                Lend
                            </Button>
                            <Button
-                               danger
+                               color= "danger"
                                onClick = {() =>
                                 setShowDeleteConfirmation(true)
                                }

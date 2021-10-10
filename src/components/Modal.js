@@ -13,7 +13,7 @@ background: rgba(0, 0, 0, 0.5);
 
 export const DialogBox = styled.div`
 position: fixed;
-background : antiquewhite;
+background : white;
 width: 33%;
 height:auto;
 top: 50%;

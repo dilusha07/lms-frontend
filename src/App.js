@@ -30,6 +30,9 @@ function App() {
     },
     secondary:{
       main:"#fff",
+      light: "#cfcfcf",
+      dark: "#707070",
+      textColor: "#000",
     },
     spacing: (factor) =>  '${factor * 8}px',
     
