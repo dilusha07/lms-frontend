@@ -9,10 +9,11 @@ import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 import { Button, 
          Container, 
          ContainerInline, 
-         FlexRow 
+         FlexRow, 
 } from "../../../components/CommonComponents";
 import Spinner from "../../../components/Spinner";
-import ConfirmationDialog from "../../../components/ConfirmationDialog";
+import ConfirmationDialog from "../../../components/ConfirmationDialog"
+import LendDialog from "./LendDialog";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
  align-items: flex-start;
@@ -31,12 +32,13 @@ const Book = ({id, handleBackClick}) =>{
     const [isLoading, setIsLoading] = useState(false);
     const [book, setBook] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [showLendConfirmation, setShowLendConfirmation] = useState(false);
 
     const handleDelete = (confirmation) => {
         if(confirmation){
             console.log("Delete confirmed");
         }
-        setShowDeleteConfirmation(false)
+        setShowDeleteConfirmation(false);
     };
 
     useEffect(() =>{
@@ -54,6 +56,13 @@ const Book = ({id, handleBackClick}) =>{
             setIsLoading(false);
         });
     }, [id]);
+
+    const handleLend = (confirmed, member) => {
+        if(confirmed){
+            console.log("Book lended to ", member);
+        }
+        setShowLendConfirmation(false);
+    };
 
     return (
         <>
@@ -92,7 +101,9 @@ const Book = ({id, handleBackClick}) =>{
                     {book.isAvailable ? (
                         <>
                         <Button 
-                           onClick = {() =>console.log("Call lend API")}
+                           onClick = {() =>
+                            setShowLendConfirmation(true)
+                        }
                            >
                                Lend
                            </Button>
@@ -127,7 +138,9 @@ const Book = ({id, handleBackClick}) =>{
             show={showDeleteConfirmation}
             headerText="Confirm book deletion"
             detailText="Are you sure want to dlete this book? This action can't be undone"/>
-        </>
+
+        <LendDialog show={showLendConfirmation} handleClose={handleLend} />
+    </>
     );
 };
 

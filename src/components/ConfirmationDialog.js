@@ -1,4 +1,4 @@
-import { Button, FlexBow } from "./CommonComponents";
+import { Button, FlexRow } from "./CommonComponents";
 import { Modal, DialogBox } from "./Modal";
 
 export default function ConfirmationDialog({
@@ -15,10 +15,10 @@ export default function ConfirmationDialog({
             <DialogBox>
                 <h2>{headerText}</h2>
                 <p>{detailText}</p>
-                <FlexBow>
+                <FlexRow>
                     <Button onClick ={sendYes} color="danger">Yes</Button>
                     <Button onClick ={sendNo}>No</Button>
-                </FlexBow>
+                </FlexRow>
             </DialogBox>
         </Modal>
     );
