@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {IoReturnUpBack} from "react-icons/io5";
 import styled from "styled-components";
 
-import { getBook } from "../../../api/bookAPI";
+import { getBook, lendBook } from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 
 
@@ -14,6 +14,7 @@ import { Button,
 import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog"
 import LendDialog from "./LendDialog";
+import { getTodaysDate } from "../../../shared/utils";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
  align-items: flex-start;
@@ -34,13 +35,6 @@ const Book = ({id, handleBackClick}) =>{
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [showLendConfirmation, setShowLendConfirmation] = useState(false);
 
-    const handleDelete = (confirmation) => {
-        if(confirmation){
-            console.log("Delete confirmed");
-        }
-        setShowDeleteConfirmation(false);
-    };
-
     useEffect(() =>{
         setIsLoading(true);
         getBook(id)
@@ -57,9 +51,17 @@ const Book = ({id, handleBackClick}) =>{
         });
     }, [id]);
 
-    const handleLend = (confirmed, member) => {
+    const handleDelete = (confirmation) => {
+        if(confirmation){
+            console.log("Delete confirmed");
+        }
+        setShowDeleteConfirmation(false);
+    };
+
+
+    const handleLend = (confirmed, memberId) => {
         if(confirmed){
-            console.log("Book lended to ", member);
+            lendBook(book.id, memberId, getTodaysDate());
         }
         setShowLendConfirmation(false);
     };
