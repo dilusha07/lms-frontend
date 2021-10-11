@@ -10,10 +10,11 @@ padding: 1em;
 
 export const Container = styled.div`
 display: flex;
-flex-directiion: column;
-justify-content: center;
-align-items: flex-start;
-padding: 1em 5em;
+flex-directiion: ${(props) =>props.flexDirection ? props.flexDirection : "column"};
+justify-content: ${(props) => props.justyfyContent ? props.justyfyContent : "center"};
+align-items: ${(props) => props.alignItems ? props.alignItems : "flex-start"};
+width: ${(props) => props.disableFulWidth ? "initial" : "100%"};
+padding: 1em;
 `;
 
 export const ContainerInline = styled.div`
@@ -52,6 +53,8 @@ border: 0;
 border-radius: 0.5em;
 cursor: pointer;
 margin: 1em;
+
+${(props) => props.rounded ? "border-radius: 50%; padding: 0.5em;" : ""}
 
 :hover{
     background-color: ${(props) => {
