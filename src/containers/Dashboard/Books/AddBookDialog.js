@@ -9,14 +9,19 @@ import { Modal, DialogBox } from "../../../components/Modal";
 
 import Input from "../../../components/Input";
 
-
 export default function AddBookDialog({handleClose, show}){
     const [title, setTitle] = useState("");
     const [author, setAuthor] = useState("");
 
+    const clearInputs = () => {
+        setTitle("")
+        setAuthor("")
+    }
     const sendDone = () => {
         if(title !== "" && author !== ""){
-            handleClose(true, {title, author});
+            const data = { title, author};
+            clearInputs();
+            handleClose(true, {title, data});
 
         }else if (title !== "" && author !== ""){
             window.alert("Please enter a title to add.");
@@ -25,7 +30,9 @@ export default function AddBookDialog({handleClose, show}){
         }
 
     };
-    const sendCancel = () => handleClose(false, null);
+    const sendCancel = () => 
+     clearInputs(); 
+    handleClose(false, null);
 
     return(
         <Modal show={show}>
