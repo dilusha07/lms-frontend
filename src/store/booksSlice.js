@@ -12,17 +12,31 @@ export const bookSlice = createSlice({
 
         },
         updateBook: (state, action) => {
-          const updateBooks = [...state.value];
+          const updatedBooks = [...state.value];
           const id = action.payload.id;
-          const index = updateBooks.findIndex(
-            (element) => element.id == id
+          const index = updatedBooks.findIndex(
+            (element) => element.id === id
           );
-          updateBooks.splice(index, 1, action.payload);
-          state.value = updateBooks;
+          updatedBooks.splice(index, 1, action.payload);
+          state.value = updatedBooks;
+        },
+        addBook: (state, action) => {
+          const updatedBooks = [...state.value];
+          updatedBooks.push(action.payload);
+          state.value = updatedBooks;
+        },
+        deleteBook: (state, action) => {
+          const updatedBooks = [...state.value];
+          const id = action.payload;
+          const index = updatedBooks.findIndex(
+            (element) => element.id === id
+          );
+          updatedBooks.splice(index, 1);
+          state.value = updatedBooks;
         },
     },
   });
   
-  export const { setBooks, updateBook } = bookSlice.actions
+  export const { setBooks, updateBook, addBook, deleteBook } = bookSlice.actions
 
 export default bookSlice.reducer
