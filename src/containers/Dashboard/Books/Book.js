@@ -3,7 +3,12 @@ import {IoReturnUpBack} from "react-icons/io5";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
-import { getBook, lendBook, returnBook, deleteBook } from "../../../api/bookAPI";
+import { 
+    getBook, 
+    lendBook, 
+    returnBook, 
+    deleteBook, 
+} from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 
 
@@ -16,7 +21,7 @@ import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog"
 import LendDialog from "./LendDialog";
 import { getTodaysDate } from "../../../shared/utils";
-import { updateBook } from "../../../store/booksSlice";
+import { updateBook, deleteBook as deleteBookStore } from "../../../store/booksSlice";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
  align-items: flex-start;
@@ -58,7 +63,19 @@ const Book = ({id, handleBackClick}) =>{
 
     const handleDelete = (confirmation) => {
         if(confirmation){
-            deleteBook(book.id);
+            deleteBook(book.id)
+            .then((response) => {
+                if(!response.error){
+                    console.log(response.data);
+                    dispatch(deleteBookStore(response.data));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
         }
         setShowDeleteConfirmation(false);
     };
@@ -67,7 +84,8 @@ const Book = ({id, handleBackClick}) =>{
     const handleLend = (confirmed, memberId) => {
         if(confirmed){
             setIsLoading(true);
-            lendBook(book.id, memberId, getTodaysDate()).then((response) => {
+            lendBook(book.id, memberId, getTodaysDate())
+            .then((response) => {
             if (!response.error){
                 console.log(response.data);
                 dispatch(updateBook(response.data));
@@ -85,7 +103,20 @@ const Book = ({id, handleBackClick}) =>{
 
     const handleReturn = (confirmed) => {
         if(confirmed){
-            returnBook(book.id);
+            setIsLoading(true);
+            returnBook(book.id)
+            .then((response) => {
+                if(!response.error){
+                    console.log(response.data);
+                    dispatch(updateBook(response.data));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
         }
         setShowReturnConfirmation(false);
     };
