@@ -12,13 +12,13 @@ import {
 import Spinner from "../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 
-import {getMember, deleteMember} from "../../api/memberAPI"
-import { getTodaysDate } from "../../../shared/utils";
+import {getMember, deleteMember, editMember} from "../../api/memberAPI"
 
 const Member = ({id, handleBackClick}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [member, setMember] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+    const [showEditMemberDialog, setshowEditMemberDialog] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
@@ -43,6 +43,17 @@ const Member = ({id, handleBackClick}) => {
             setShowDeleteConfirmation(false);
         };
 
+        const handleEdit = (confirmed, data) => {
+            if(confirmed){
+            
+                editMember(member.id, data)
+                
+            }
+            setshowEditMemberDialog(false);
+        };
+    
+    
+
    return(
        <>
        <Container>
@@ -65,15 +76,23 @@ const Member = ({id, handleBackClick}) => {
                             
                             </FlexRow>
                             <FlexRow>
-                              <Button
-                                        color="danger"
-                                        onClick={() =>
-                                            setShowDeleteConfirmation(true)
-                                        }
-                                    >
-                                        Delete
-                                    </Button>
-                               
+                                <>
+                                <Button
+                            onClick = {() => 
+                                setshowEditMemberDialog(true)
+                            }
+                            >
+                            Edit
+                        </Button>
+                        <Button
+                            color="danger"
+                            onClick={() =>
+                                setShowDeleteConfirmation(true)
+                            }
+                        >
+                            Delete
+                        </Button>
+                            </>   
                             </FlexRow>
                            </>
                             ):(
@@ -86,6 +105,12 @@ const Member = ({id, handleBackClick}) => {
        headerText="Confirm deletion"
        detailText="Are you sure you want to delete this member? This action can't be undone."
    />
+   <AddMemberDialog
+            isEdit = {true}
+            show = {showEditMemberDialog}
+            handleClose = {handleEdit}
+            data = {member}
+        />
    </>
    );
 
