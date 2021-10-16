@@ -142,10 +142,10 @@ const Book = ({id, handleBackClick}) =>{
                 <H1>{book.title}</H1>
                 <H2>{`by ${book.author}`}</H2>
                 <p>
-                lorem asddd assdrtgb mljhga  aaaaaa
-                assddd aserddd  awerssd qwersdd mklty 
-                asertfdd bnmhh
-                </p>
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
+               </p>
                 {book.isAvailable ? (
                     ""
                 ) : (
