@@ -1,8 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {IoReturnUpBack} from "react-icons/io5";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 
-import { getBook, lendBook, returnBook, deleteBook } from "../../../api/bookAPI";
+import {  
+    lendBook, 
+    returnBook, 
+    deleteBook, 
+    editBook
+} from "../../../api/bookAPI";
 import BookCoverPlaceholder from "../../../shared/book-cover-placeholder.png";
 
 
@@ -14,7 +20,10 @@ import { Button,
 import Spinner from "../../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog"
 import LendDialog from "./LendDialog";
+import AddEditBookDialog from "./AddEditBookDialog";
+
 import { getTodaysDate } from "../../../shared/utils";
+import { updateBook, deleteBook as deleteBookStore } from "../../../store/booksSlice";
 
 const ContainerInlineTextAlignLeft = styled(ContainerInline)`
  align-items: flex-start;
@@ -31,29 +40,29 @@ const ContainerInlineTextAlignLeft = styled(ContainerInline)`
 const Book = ({id, handleBackClick}) =>{
 
     const [isLoading, setIsLoading] = useState(false);
-    const [book, setBook] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [showLendConfirmation, setShowLendConfirmation] = useState(false);
     const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
-    useEffect(() =>{
-        setIsLoading(true);
-        getBook(id)
-        .then((Response)=>{
-            if(!Response.error){
-                setBook(Response.data);
-            }
-        })
-        .catch((error) =>{
-            console.log(error);
-        })
-        .finally(() =>{
-            setIsLoading(false);
-        });
-    }, [id]);
+    const [showEditBookDialog, setshowEditBookDialog] = useState(false);
+
+    const books = useSelector((state) => state.books.value);
+    const book = books.find((element) => element.id === id);
+   
+    const dispatch = useDispatch();
 
     const handleDelete = (confirmation) => {
         if(confirmation){
-            deleteBook(book.id);
+            deleteBook(book.id)
+            .then((response) => {
+                if(!response.error){
+                    
+                    dispatch(deleteBookStore(response.data));
+                    handleBackClick();
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
         setShowDeleteConfirmation(false);
     };
@@ -61,17 +70,64 @@ const Book = ({id, handleBackClick}) =>{
 
     const handleLend = (confirmed, memberId) => {
         if(confirmed){
-            lendBook(book.id, memberId, getTodaysDate());
+            setIsLoading(true);
+            lendBook(book.id, memberId, getTodaysDate())
+            .then((response) => {
+            if (!response.error){
+                
+                dispatch(updateBook(response.data));
+            }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
         }
         setShowLendConfirmation(false);
     };
 
     const handleReturn = (confirmed) => {
         if(confirmed){
-            returnBook(book.id);
+            setIsLoading(true);
+            returnBook(book.id)
+            .then((response) => {
+                if(!response.error){
+                    
+                    dispatch(updateBook(response.data));
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
         }
         setShowReturnConfirmation(false);
     };
+
+    const handleEdit = (confirmed, data) => {
+        if(confirmed){
+            setIsLoading(true);
+            editBook(book.id, data)
+            .then((response) => {
+            if (!response.error){
+                
+                dispatch(updateBook(response.data));
+            }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+        }
+        setshowEditBookDialog(false);
+    };
+
 
     return (
         <>
@@ -86,10 +142,10 @@ const Book = ({id, handleBackClick}) =>{
                 <H1>{book.title}</H1>
                 <H2>{`by ${book.author}`}</H2>
                 <p>
-                lorem asddd assdrtgb mljhga  aaaaaa
-                assddd aserddd  awerssd qwersdd mklty 
-                asertfdd bnmhh
-                </p>
+                    Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit, sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua.
+               </p>
                 {book.isAvailable ? (
                     ""
                 ) : (
@@ -116,6 +172,13 @@ const Book = ({id, handleBackClick}) =>{
                            >
                                Lend
                            </Button>
+                           <Button
+                            onClick = {() => 
+                                setshowEditBookDialog(true)
+                            }
+                            >
+                            Edit
+                        </Button>
                            <Button
                                color= "danger"
                                onClick = {() =>
@@ -155,6 +218,12 @@ const Book = ({id, handleBackClick}) =>{
             headerText="Confirm book return"
             detailText="Press 'Yes' to Confirm' return "
             />
+        <AddEditBookDialog
+            isEdit = {true}
+            show = {showEditBookDialog}
+            handleClose = {handleEdit}
+            data = {book}
+        />
     </>
     );
 };
