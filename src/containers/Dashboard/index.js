@@ -13,7 +13,7 @@ const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
     
     
-    const booksFromRedux = useSelector((state) => state.books.value);
+    const books = useSelector((state) => state.books.value);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const Dashboard = () => {
     const contents = [
         {
             title: "Books", 
-            element: <Books catalog = {booksFromRedux} />
+            element: <Books catalog = {books} />
         },
         {
             title: "Members", 

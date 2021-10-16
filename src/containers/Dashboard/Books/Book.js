@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {IoReturnUpBack} from "react-icons/io5";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { 
-    getBook, 
+import {  
     lendBook, 
     returnBook, 
     deleteBook, 
@@ -38,28 +37,14 @@ const ContainerInlineTextAlignLeft = styled(ContainerInline)`
 const Book = ({id, handleBackClick}) =>{
 
     const [isLoading, setIsLoading] = useState(false);
-    const [book, setBook] = useState(null);
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
     const [showLendConfirmation, setShowLendConfirmation] = useState(false);
     const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
     
+    const books = useSelector((state) => state.books.value);
+    const book = books.find((element) => waitForElementToBeRemoved.id === id);
+   
     const dispatch = useDispatch();
-
-    useEffect(() =>{
-        setIsLoading(true);
-        getBook(id)
-        .then((Response)=>{
-            if(!Response.error){
-                setBook(Response.data);
-            }
-        })
-        .catch((error) =>{
-            console.log(error);
-        })
-        .finally(() =>{
-            setIsLoading(false);
-        });
-    }, [id]);
 
     const handleDelete = (confirmation) => {
         if(confirmation){
@@ -68,6 +53,7 @@ const Book = ({id, handleBackClick}) =>{
                 if(!response.error){
                     console.log(response.data);
                     dispatch(deleteBookStore(response.data));
+                    handleBackClick();
                 }
             })
             .catch((error) => {
