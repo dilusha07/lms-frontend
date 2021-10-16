@@ -12,7 +12,7 @@ import {
 import Spinner from "../../components/Spinner";
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 
-import {getMember, deleteMember, editMember} from "../../api/memberAPI"
+import {getMember, deleteMember, editMember} from "../../api/memberAPI";
 
 const Member = ({id, handleBackClick}) => {
     const [isLoading, setIsLoading] = useState(false);
