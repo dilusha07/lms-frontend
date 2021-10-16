@@ -10,7 +10,7 @@ import {
 } from "../../../components/CommonComponents";
 
 import Book from "./Book";
-import AddBookDialog from "./AddBookDialog";
+import AddEditBookDialog from "./AddEditBookDialog";
 
 import { addBook } from "../../../api/bookAPI";
 import { addBook as addBookToStore } from "../../../store/booksSlice";
@@ -62,7 +62,7 @@ const Books = ({catalog}) => {
             instruction= "Click row to view book"
             />
         </FluidContainer>
-        <AddBookDialog
+        <AddEditBookDialog
         show={showAddBookDialog}
         handleClose={handleAddBook}
         />
