@@ -216,7 +216,7 @@ const Book = ({id, handleBackClick}) =>{
             handleClose={handleReturn}
             show={showReturnConfirmation}
             headerText="Confirm book return"
-            detailText="Press Confirm' to return book"
+            detailText="Press 'Yes' to Confirm' return "
             />
         <AddEditBookDialog
             isEdit = {true}
