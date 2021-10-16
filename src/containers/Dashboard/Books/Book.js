@@ -42,7 +42,7 @@ const Book = ({id, handleBackClick}) =>{
     const [showReturnConfirmation, setShowReturnConfirmation] = useState(false);
     
     const books = useSelector((state) => state.books.value);
-    const book = books.find((element) => waitForElementToBeRemoved.id === id);
+    const book = books.find((element) => element.id === id);
    
     const dispatch = useDispatch();
 
@@ -51,16 +51,13 @@ const Book = ({id, handleBackClick}) =>{
             deleteBook(book.id)
             .then((response) => {
                 if(!response.error){
-                    console.log(response.data);
+                    
                     dispatch(deleteBookStore(response.data));
                     handleBackClick();
                 }
             })
             .catch((error) => {
                 console.log(error);
-            })
-            .finally(() => {
-                setIsLoading(false);
             });
         }
         setShowDeleteConfirmation(false);
@@ -73,7 +70,7 @@ const Book = ({id, handleBackClick}) =>{
             lendBook(book.id, memberId, getTodaysDate())
             .then((response) => {
             if (!response.error){
-                console.log(response.data);
+                
                 dispatch(updateBook(response.data));
             }
             })
@@ -93,7 +90,7 @@ const Book = ({id, handleBackClick}) =>{
             returnBook(book.id)
             .then((response) => {
                 if(!response.error){
-                    console.log(response.data);
+                    
                     dispatch(updateBook(response.data));
                 }
             })
