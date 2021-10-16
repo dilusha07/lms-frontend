@@ -8,10 +8,11 @@ import Books from "./Books/index";
 
 import { setBooks } from "../../store/booksSlice";
 import { getBooks } from "../../api/bookAPI";
+import { getMembers } from "../../api/memberAPI";
 
 const Dashboard = () => {
     const [isLoading, setIsLoading] = useState(false);
-    
+    const [members, setMembers] = useState(null);
     
     const books = useSelector((state) => state.books.value);
     const dispatch = useDispatch();
@@ -33,6 +34,23 @@ const Dashboard = () => {
         });
         
     }, [dispatch]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        getMembers()
+            .then((response) => {
+                if (!response.error) {
+                    setMembers(response.data);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
     const contents = [
         {
             title: "Books", 
@@ -40,7 +58,7 @@ const Dashboard = () => {
         },
         {
             title: "Members", 
-            element: <h1>Contents of books go here.</h1>
+            element: <Members members={members}/>
         },
         
     ]
