@@ -34,7 +34,7 @@ const Books = ({catalog}) => {
             addBook(data)
             .then((response) => {
                 if(!response.error){
-                    console.log(response.data);
+                    
                     dispatch(addBookToStore(response.data));
                 }
             })
