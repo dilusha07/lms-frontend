@@ -5,6 +5,7 @@ import Tabs from "../../components/Tabs";
 import Spinner from "../../components/Spinner";
 
 import Books from "./Books/index";
+import Members from "./Members/Member";
 
 import { setBooks } from "../../store/booksSlice";
 import { getBooks } from "../../api/bookAPI";

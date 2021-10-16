@@ -9,10 +9,12 @@ import {
 } from "../../../components/CommonComponents";
 
 import { addMember } from "../../../api/memberAPI";
+import AddMemberDialog from "./AddMemberDialog";
 
 
 const Members = ({ members }) => {
     const [selectedMemberId, setSelectedMemberId] = useState(null);
+    const [showAddMemberDialog, setShowAddMembersDialog] = useState(false);
     
     const handleTableRowClick = (id) => {
         setSelectedMemberId(id);
@@ -49,6 +51,10 @@ const Members = ({ members }) => {
                 handleRowClick={handleTableRowClick}
                  />
             </FluidContainer>
+            <AddMemberDialog
+                show={showAddMemberDialog}
+                handleClose={handleAddMember}
+            />
             
         </>
          ): (
